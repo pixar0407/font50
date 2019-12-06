@@ -4,7 +4,6 @@ from model import convnet
 from font_dataset import FontDataset
 
 torch.manual_seed(7777)
-torch.seed(7777)
 
 train_dir = '../npy_train'
 val_dir = '../npy_val'
