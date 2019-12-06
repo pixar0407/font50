@@ -7,7 +7,8 @@ import torch.nn as nn
 # fc size > 3265 / 5000
 # epoch
 # layer 상범 버전으로 (stride =2)dropout 제거 > acc : 2946 / 5000
-# layer 상범 버전으로 (stride =1)dropout 제거 > 
+# layer 상범 버전으로 (stride =1)dropout 제거 > 4140 / 5000
+# reshape 이상한 
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
