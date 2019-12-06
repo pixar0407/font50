@@ -31,13 +31,13 @@ class FontDataset():
     def __getitem__(self, index):
         npy_entry = self.npy_entry
         single_npy_path = npy_entry[index]
-        print(single_npy_path)
+        # print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
         single_npy_tensor = self.to_tensor(single_npy)
 
         single_npy_label = np.load(single_npy_path, allow_pickle=True)[1]
-        print(single_npy_label)
+        # print(single_npy_label)
 
         return (single_npy_tensor, single_npy_label)
 
