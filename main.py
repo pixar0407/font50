@@ -3,8 +3,8 @@ import torch.nn as nn
 from model import convnet
 from font_dataset import FontDataset
 
-train_dir = '../data/npy_train'
-val_dir = '../data/npy_val'
+train_dir = '../npy_train'
+val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
@@ -16,8 +16,8 @@ val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = convnet().to(device)
 
-criterion = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.05)
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
 num_epochs = 1
 
