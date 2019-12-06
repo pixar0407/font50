@@ -45,23 +45,23 @@ class FontDataset():
         return len(self.npy_entry)
 
 
-if __name__ == '__main__':
-    train_dir = '../data/npy_train'
-    val_dir = '../data/npy_val'
+# if __name__ == '__main__':
+#     train_dir = '../data/npy_train'
+#     val_dir = '../data/npy_val'
 
     # ================================================================== #
     #                        1. Load Data
     # ================================================================== #
-    train_dataset = FontDataset(train_dir)
-    val_dataset = FontDataset(val_dir)
+    # train_dataset = FontDataset(train_dir)
+    # val_dataset = FontDataset(val_dir)
 
     # ================================================================== #
     #                        2. Define Dataloader
     # ================================================================== #
-    train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                               batch_size=1, shuffle=True)
-
-    val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
-                                             batch_size=1)
+    # train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+    #                                            batch_size=1, shuffle=True)
+    #
+    # val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
+    #                                          batch_size=1)
 
     # 이하 양곤 작성
