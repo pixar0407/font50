@@ -13,6 +13,7 @@ import torch.nn as nn
 # reshape 이상한 4191 / 5000
 # 위와 동일 2 epoch 4583 / 5000  5분 13
 # layer 2의 output channel을 32로 (기존 16), 2 epoch 4659 / 5000 5분18
+# padding 제거 filter size 16 > 
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
