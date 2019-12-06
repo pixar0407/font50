@@ -3,6 +3,9 @@ import torch.nn as nn
 from model import convnet
 from font_dataset import FontDataset
 
+torch.manual_seed(7777)
+torch.seed(7777)
+
 train_dir = '../npy_train'
 val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
@@ -27,6 +30,9 @@ for epoch in range(num_epochs):
         images = images.reshape(-1, 1, 32, 32).to(device) # reshape dimensions of the input images to fit model
         labels = labels.to(device)
 
+        ##laplacian
+        # images =
+
         # Forward Propagation
         outputs = model(images)
 
@@ -35,6 +41,9 @@ for epoch in range(num_epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+
+        if i%50 == 0:
+            print(f"loss for {i} : {loss}")
 
 
 
@@ -51,7 +60,7 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
 
 
-    print(f"acc : {correct}")
+    print(f"acc : {correct} / 5000")
 
 
 
