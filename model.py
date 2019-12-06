@@ -2,13 +2,14 @@ import torch
 import torch.nn as nn
 #12/06
 # normalization -1 ~ 1
+# edge cv2
 # batch size > 1
 # kernel size 5 % padding 2 > 3404 / 5000
 # fc size > 3265 / 5000
 # epoch
 # layer 상범 버전으로 (stride =2)dropout 제거 > acc : 2946 / 5000
 # layer 상범 버전으로 (stride =1)dropout 제거 > 4140 / 5000
-# reshape 이상한 
+# reshape 이상한 4191 / 5000
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
