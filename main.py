@@ -36,8 +36,6 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        if i%100 == 0:
-            print(f"loss for {i} : {loss}")
 
 
 # Test after Training is done
@@ -52,8 +50,8 @@ with torch.no_grad():
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
-        if i%50 == 0:
-            print(f"loss for {i} : {loss}")
+
+    print(f"acc : {correct}")
 
 
 
