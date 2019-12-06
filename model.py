@@ -7,9 +7,11 @@ import torch.nn as nn
 # kernel size 5 % padding 2 > 3404 / 5000
 # fc size > 3265 / 5000
 # epoch
+# output channel 더 깊게
 # layer 상범 버전으로 (stride =2)dropout 제거 > acc : 2946 / 5000
 # layer 상범 버전으로 (stride =1)dropout 제거 > 4140 / 5000
 # reshape 이상한 4191 / 5000
+# 위와 동일 2 epoch 4583 / 5000
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
