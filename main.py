@@ -1,7 +1,10 @@
 import torch
+import time
 import torch.nn as nn
 from model import convnet
 from font_dataset import FontDataset
+
+start = time.time()
 
 torch.manual_seed(7777)
 
@@ -44,7 +47,8 @@ for epoch in range(num_epochs):
         if i%50 == 0:
             print(f"loss for {i} : {loss}")
 
-
+end = time.time()
+print("걸린 시간 : {}s".format(end - start))
 
 # Test after Training is done
 with torch.no_grad():

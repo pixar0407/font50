@@ -5,18 +5,19 @@ import torch.nn as nn
 # batch size > 1
 # kernel size 5 % padding 2 > 3404 / 5000
 # fc size > 3265 / 5000
-# layer 상범 버전으로 dropout 제거
+# epoch
+# layer 상범 버전으로 dropout 제거 > acc : 2946 / 5000
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 6, 5, stride = 2, padding = 2),
+            nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
             nn.BatchNorm2d(6),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
-            nn.Conv2d(6, 16, 5, stride = 2, padding = 2),
+            nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2)
@@ -28,7 +29,7 @@ class convnet(nn.Module):
         #     nn.MaxPool2d(2)
         # )
         self.layer4 = nn.Sequential(
-            nn.Linear( 2 * 2 *16, 120),
+            nn.Linear( 8 * 8 *16, 120),
             nn.ReLU()
         )
         # self.layer5 = nn.Sequential(
@@ -44,7 +45,7 @@ class convnet(nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         # x = self.layer3(x)
-        x = x.view(-1, 2* 2 * 16)
+        x = x.view(-1, 8* 8 * 16)
         x = self.layer4(x)
         # x = self.layer5(x)
         return self.layer6(x)
