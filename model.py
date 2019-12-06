@@ -1,24 +1,28 @@
 import torch
 import torch.nn as nn
-
+#12/06
+# normalization -1 ~ 1
+# batch size > 1
+# kernel size
+# fc size > 3265 / 5000
 
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 6, 3, stride = 1, padding = 1),
+            nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
             nn.BatchNorm2d(6),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
-            nn.Conv2d(6, 16, 3, stride = 1, padding = 1),
+            nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer3 = nn.Sequential(
-            nn.Conv2d(16, 32, 3, stride = 1, padding = 1),
+            nn.Conv2d(16, 32, 5, stride = 1, padding = 2),
             nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(2)
