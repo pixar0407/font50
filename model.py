@@ -39,13 +39,13 @@ class convnet(nn.Module):
             nn.Linear( 8* 8 *32, 512),
             nn.ReLU()
         )
-        self.layer5 = nn.Sequential(
-            nn.Linear(512, 128),
-            nn.ReLU()
-        )
+        # self.layer5 = nn.Sequential(
+        #     nn.Linear(512, 128),
+        #     nn.ReLU()
+        # )
         self.layer6 = nn.Sequential(
             # nn.Dropout(0.3),
-            nn.Linear(128, 50)
+            nn.Linear(512, 50)
         )
 
     def forward(self, x):
@@ -54,5 +54,5 @@ class convnet(nn.Module):
         x = self.layer3(x)
         x = x.view(-1, 8*8*32)
         x = self.layer4(x)
-        x = self.layer5(x)
+        # x = self.layer5(x)
         return self.layer6(x)
