@@ -42,7 +42,7 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear( 16* 16 *32, 2048),
+            nn.Linear(8* 8 *32, 1024),
             nn.ReLU()
         )
         # self.fc2 = nn.Sequential(
@@ -51,7 +51,7 @@ class convnet(nn.Module):
         # )
         self.fc3 = nn.Sequential(
             # nn.Dropout(0.3),
-            nn.Linear(2048, 50)
+            nn.Linear(1024, 50)
         )
 
     def forward(self, x):
@@ -59,7 +59,7 @@ class convnet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
-        x = x.view(-1, 16*16*32)
+        x = x.view(-1, 8*8*32)
         x = self.fc1(x)
         # x = self.fc2(x)
         return self.fc3(x)
