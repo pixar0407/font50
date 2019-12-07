@@ -13,10 +13,10 @@ val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=1, shuffle=True)
+                                           batch_size=50, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
-                                         batch_size=1)
+                                         batch_size=50)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = convnet().to(device)
@@ -62,8 +62,6 @@ with torch.no_grad():
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-
-
     print(f"acc : {correct} / 5000")
 
 
