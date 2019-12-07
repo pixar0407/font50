@@ -24,13 +24,13 @@ class convnet(nn.Module):
             # nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
-            nn.Conv2d(16, 16, 3, stride = 1, padding=1),
-            nn.BatchNorm2d(16),
+            nn.Conv2d(16, 32, 3, stride = 1, padding=1),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer3 = nn.Sequential(
-            nn.Conv2d(16, 32, 3, stride = 1, padding = 1),
+            nn.Conv2d(32, 32, 3, stride = 1, padding = 1),
             nn.BatchNorm2d(32),
             nn.ReLU(),
             # nn.MaxPool2d(2)
