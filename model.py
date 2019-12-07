@@ -52,7 +52,7 @@ class convnet(nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
-        x = x.view(-1, 8*8*16)
+        x = x.view(-1, 8*8*32)
         x = self.layer4(x)
         x = self.layer5(x)
         return self.layer6(x)
