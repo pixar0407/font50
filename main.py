@@ -28,7 +28,7 @@ else:
 model = convnet().to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.00017)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.00014)
 
 num_epochs = 1
 
