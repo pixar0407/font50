@@ -19,7 +19,7 @@ class convnet(nn.Module):
         super().__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, 3, stride = 1, padding=1),
-            nn.BatchNorm2d(6),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
             # nn.MaxPool2d(2)
         )
