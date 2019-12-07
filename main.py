@@ -4,6 +4,9 @@ import torch.nn as nn
 from model import convnet
 from font_dataset import FontDataset
 
+
+
+
 start = time.time()
 
 torch.manual_seed(7777)
@@ -19,6 +22,12 @@ val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=50)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+if torch.cuda.is_available():
+    print("Using CUDA!")
+else:
+    print('Not using CUDA!!!')
+
 model = convnet().to(device)
 
 criterion = nn.CrossEntropyLoss()
