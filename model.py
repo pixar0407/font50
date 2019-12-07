@@ -11,8 +11,8 @@ import torch.nn as nn
 # layer 상범 버전으로 (stride =2)dropout 제거 > acc : 2946 / 5000
 # layer 상범 버전으로 (stride =1)dropout 제거 > 4140 / 5000
 # reshape 이상한 4191 / 5000
-# 위와 동일 2 epoch 4583 / 5000
-# 위와 동일 2 epoch, 50 batch 3773 / 5000
+# 위와 동일 2 epoch 4583 / 5000, 4586 / 5000
+# 위와 동일 2 epoch, 50 batch 3773 / 5000 : batch size 올리면 존나 정확도 떨어지구연
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()

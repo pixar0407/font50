@@ -6,13 +6,14 @@ from font_dataset import FontDataset
 start = time.time()
 
 torch.manual_seed(7777)
+torch.cuda.manual_seed_all(12312312312)
 
 train_dir = '../npy_train'
 val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=1, shuffle=True)
+                                           batch_size=10, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=1)
