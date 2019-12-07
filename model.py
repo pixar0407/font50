@@ -18,13 +18,13 @@ class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 6, 5, stride = 1, padding=2),
+            nn.Conv2d(1, 6, 3, stride = 1, padding=1),
             nn.BatchNorm2d(6),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
-            nn.Conv2d(6, 16, 5, stride = 1, padding=2),
+            nn.Conv2d(6, 16, 3, stride = 1, padding=1),
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2)
@@ -36,23 +36,23 @@ class convnet(nn.Module):
         #     nn.MaxPool2d(2)
         # )
         self.layer4 = nn.Sequential(
-            nn.Linear( 8* 8 *16, 256),
+            nn.Linear( 7* 7 *16, 120),
             nn.ReLU()
         )
-        self.layer5 = nn.Sequential(
-            nn.Linear(256, 128),
-            nn.ReLU()
-        )
+        # self.layer5 = nn.Sequential(
+        #     nn.Linear(120, 50),
+        #     nn.ReLU()
+        # )
         self.layer6 = nn.Sequential(
             # nn.Dropout(0.3),
-            nn.Linear(128, 50)
+            nn.Linear(120, 50)
         )
 
     def forward(self, x):
         x = self.layer1(x)
         x = self.layer2(x)
         # x = self.layer3(x)
-        x = x.view(-1, 8*8*16)
+        x = x.view(-1, 7*7*16)
         x = self.layer4(x)
-        x = self.layer5(x)
+        # x = self.layer5(x)
         return self.layer6(x)
