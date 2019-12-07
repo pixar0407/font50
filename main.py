@@ -13,7 +13,7 @@ val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=10, shuffle=True)
+                                           batch_size=1, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=1)
