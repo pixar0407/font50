@@ -3,10 +3,6 @@ import time
 import torch.nn as nn
 from model import convnet
 from font_dataset import FontDataset
-
-
-
-
 start = time.time()
 
 torch.manual_seed(7777)
@@ -16,10 +12,10 @@ val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=50, shuffle=True)
+                                           batch_size=1, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
-                                         batch_size=50)
+                                         batch_size=1)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
