@@ -35,8 +35,6 @@ class FontDataset():
         # print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
-        single_npy *= 2
-        single_npy -= 1
         # single_npy = cv2.Laplacian(single_npy, cv2.CV_32F, ksize = 3)
         single_npy_tensor = self.to_tensor(single_npy)
 
