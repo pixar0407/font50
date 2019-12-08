@@ -69,7 +69,7 @@ with torch.no_grad():
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-    print(f"acc : {correct} / 5000")
+    print(f"acc : {correct} / 5000 >>> {correct/50}")
 
 
 

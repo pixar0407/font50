@@ -42,7 +42,7 @@ class convnet(nn.Module):
         #     nn.MaxPool2d(2)
         # )
         self.fc1 = nn.Sequential(
-            nn.Linear(16* 16 *12, 2048),
+            nn.Linear(16* 16 *12, 1024),
             nn.Tanh()
         )
         # self.fc2 = nn.Sequential(
@@ -51,7 +51,7 @@ class convnet(nn.Module):
         # )
         self.fc3 = nn.Sequential(
             # nn.Dropout(0.3),
-            nn.Linear(2048, 50),
+            nn.Linear(1024, 50),
         )
 
     def forward(self, x):
