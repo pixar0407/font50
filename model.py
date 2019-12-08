@@ -31,7 +31,7 @@ class convnet(nn.Module):
         )
         self.layer3 = nn.Sequential(
             nn.Conv2d(16, 16, 3, stride = 1, padding = 1),
-            nn.BatchNorm2d(32),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
