@@ -43,7 +43,7 @@ class convnet(nn.Module):
         # )
         self.fc1 = nn.Sequential(
             nn.Linear(16* 16 *16, 2048),
-            nn.ReLU()
+            nn.tanh()
         )
         # self.fc2 = nn.Sequential(
         #     nn.Linear(1024, 1024),
@@ -52,7 +52,6 @@ class convnet(nn.Module):
         self.fc3 = nn.Sequential(
             # nn.Dropout(0.3),
             nn.Linear(2048, 50),
-            nn.ReLU()
         )
 
     def forward(self, x):
