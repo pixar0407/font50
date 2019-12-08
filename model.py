@@ -43,7 +43,7 @@ class convnet(nn.Module):
         # )
         self.fc1 = nn.Sequential(
             nn.Linear(16* 16 *16, 2048),
-            nn.tanh()
+            nn.Tanh()
         )
         # self.fc2 = nn.Sequential(
         #     nn.Linear(1024, 1024),
