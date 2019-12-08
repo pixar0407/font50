@@ -45,10 +45,10 @@ class convnet(nn.Module):
             nn.Linear(8* 8 *32, 1024),
             nn.ReLU()
         )
-        # self.fc2 = nn.Sequential(
-        #     nn.Linear(120, 50),
-        #     nn.ReLU()
-        # )
+        self.fc2 = nn.Sequential(
+            nn.Linear(1024, 1024),
+            nn.ReLU()
+        )
         self.fc3 = nn.Sequential(
             # nn.Dropout(0.3),
             nn.Linear(1024, 50)
@@ -61,5 +61,5 @@ class convnet(nn.Module):
         x = self.layer4(x)
         x = x.view(-1, 8*8*32)
         x = self.fc1(x)
-        # x = self.fc2(x)
+        x = self.fc2(x)
         return self.fc3(x)
