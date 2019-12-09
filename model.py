@@ -54,7 +54,7 @@ class convnet(nn.Module):
             nn.AvgPool2d(kernel_size=4, stride=4, padding=0),
             nn.Conv2d(1, 16, 5, stride=1, padding=2),
             nn.ReLU(),
-            nn.Conv2d(32, 16, 3, stride=1, padding=1),
+            nn.Conv2d(16, 16, 3, stride=1, padding=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
