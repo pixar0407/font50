@@ -49,6 +49,10 @@ class convnet(nn.Module):
             nn.Linear(2048, 50)
         )
 
+        # self.layer7 = nn.Sequential(
+        #     nn.AvgPool2D(kernel_size=4, stride=4, padding=0)
+        # )
+
     def forward(self, x):
         x = self.layer1(x)
         x = self.layer2(x)
