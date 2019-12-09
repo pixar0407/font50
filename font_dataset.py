@@ -36,7 +36,7 @@ class FontDataset():
     def __getitem__(self, index):
         npy_entry = self.npy_entry
         single_npy_path = npy_entry[index]
-        # print(single_npy_path)
+        print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
         single_npy = 1.- single_npy
