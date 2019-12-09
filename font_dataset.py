@@ -1,9 +1,9 @@
 import numpy as np
-# import cv2
 import torch
 import os
 import glob
 from torchvision import transforms
+# from torch.utils.data import Dataset
 
 
 class FontDataset():
@@ -39,15 +39,9 @@ class FontDataset():
         # print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
-        # single_npy = 1.- single_npy
-        # single_npy = single_npy.astype(np.float32)
-
-        # single_npy = cv2.Laplacian(single_npy, cv2.CV_32F, ksize = 3)
         single_npy_tensor = self.to_tensor(single_npy)
 
-
         single_npy_label = np.load(single_npy_path, allow_pickle=True)[1]
-        # print(single_npy_label)
 
         return (single_npy_tensor, single_npy_label)
 
