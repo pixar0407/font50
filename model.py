@@ -38,7 +38,7 @@ class convnet(nn.Module):
 #         )
         self.layer4 = nn.Sequential(
             nn.Linear( 13 * 13 * 64, 2048),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(),
         )
 #         self.layer5 = nn.Sequential(
 #             nn.Linear(150, 100),
@@ -47,7 +47,7 @@ class convnet(nn.Module):
         self.layer6 = nn.Sequential(
             # nn.Dropout(0.3),
             nn.Linear(2048, 50),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(),
         )
 
         self.layer7 = nn.Sequential(
@@ -60,7 +60,7 @@ class convnet(nn.Module):
         )
         self.layer8 = nn.Sequential(
             nn.Linear(512, 50),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(),
         )
         self.layer9 = nn.Sequential(
             nn.Linear(100, 50)
@@ -79,6 +79,7 @@ class convnet(nn.Module):
         x = self.layer4(x)
 #         x = self.layer5(x)
         x = self.layer6(x)
+
         x=torch.cat([x,x_1],dim=1)
         x = self.layer9(x)
         return x
