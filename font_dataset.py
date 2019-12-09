@@ -10,10 +10,7 @@ class FontDataset():
     def __init__(self, npy_dir, max_dataset_size=float("inf")):
         self.dir_path = npy_dir
         self.to_tensor = transforms.ToTensor()
-        self.to_tensor = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((1,), (-1,))
-        ])
+
         entry = []
         files = glob.glob1(npy_dir, '*npy')
         for f in files:
@@ -38,8 +35,9 @@ class FontDataset():
         # print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
-        # single_npy = 1.- single_npy
-        # single_npy = single_npy.astype(np.float32)
+        single_npy.dtype
+        single_npy = 1.- single_npy
+        single_npy = single_npy.astype(np.float32)
 
         # single_npy = cv2.Laplacian(single_npy, cv2.CV_32F, ksize = 3)
         single_npy_tensor = self.to_tensor(single_npy)
