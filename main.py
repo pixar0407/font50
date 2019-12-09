@@ -52,13 +52,11 @@ print("걸린 시간 : {}m{}s".format(int(duration // 60), int(duration % 60)))
 # Test after Training is done
 with torch.no_grad():
     correct = 0
-    total = 0
     for i, (images, labels) in enumerate(val_loader):
         images = images.to(device)  # reshape dimensions of the input images to fit model
         labels = labels.to(device)
         outputs = model(images)
         _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
     print(f"acc : {correct} / 5000 >> acc : {correct/50}")
