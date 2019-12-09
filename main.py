@@ -51,7 +51,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        if i%50 == 0:
+        if i%5000 == 0:
             print(f"loss for {i} : {loss}")
 
 end = time.time()
@@ -61,13 +61,11 @@ print("걸린 시간 : {}m{}s".format(duration//60, duration%60))
 # Test after Training is done
 with torch.no_grad():
     correct = 0
-    total = 0
     for i, (images, labels) in enumerate(val_loader):
         images = images.to(device) # reshape dimensions of the input images to fit model
         labels = labels.to(device)
         outputs = model(images)
         _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
         correct += (predicted == labels).sum().item()
     print(f"acc : {correct} / 5000 >>> {correct/50}")
 
