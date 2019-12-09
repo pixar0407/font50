@@ -35,7 +35,6 @@ class FontDataset():
         # print(single_npy_path)
 
         single_npy = np.load(single_npy_path, allow_pickle=True)[0][:, :, 0]
-        single_npy.dtype
         single_npy = 1.- single_npy
         single_npy = single_npy.astype(np.float32)
 
