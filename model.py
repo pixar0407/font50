@@ -20,14 +20,14 @@ class convnet(nn.Module):
             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
             nn.Conv2d(1,64,5, stride = 1),
             # nn.BatchNorm2d(64),
-            nn.ReLU(),
+            nn.LeakyReLUReLU(0.2, inplace=True),
 #             nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
             # nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
             nn.Conv2d(64, 64, 3, stride = 1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
+            # nn.BatchNorm2d(64),
+            nn.LeakyReLUReLU(0.2, inplace=True),
             nn.MaxPool2d(2)
         )
 #         self.layer3 = nn.Sequential(
@@ -38,7 +38,7 @@ class convnet(nn.Module):
 #         )
         self.layer4 = nn.Sequential(
             nn.Linear( 13 * 13 * 64, 2048),
-            nn.ReLU()
+            nn.LeakyReLUReLU(0.2, inplace=True),
         )
 #         self.layer5 = nn.Sequential(
 #             nn.Linear(150, 100),
