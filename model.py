@@ -17,71 +17,108 @@ class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
             nn.Conv2d(1,64,5, stride = 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(),
-            # nn.MaxPool2d(2)
-        )
-        self.layer2 = nn.Sequential(
-            # nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
-            nn.Conv2d(64, 64, 3, stride = 1),
-            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, 5, stride=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
-#         self.layer3 = nn.Sequential(
-#             nn.Conv2d(32, 64, 3, stride = 1),
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(1,64,3, stride = 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64,3, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc1 = nn.Sequential(
+            nn.Linear( 14 * 14 * 64, 3136),
+            nn.LeakyReLU(),
+            nn.Linear(3136, 50),
+            nn.LeakyReLU(),
+        )
+        self.fc2 = nn.Sequential(
+            nn.Linear( 12 * 12 * 64, 2048),
+            nn.LeakyReLU(),
+            nn.Linear(2048, 50),
+            nn.LeakyReLU(),
+        )
+        self.fc3 = nn.Sequential(
+            nn.Linear( 100 , 50),
+        )
+#         self.layer1 = nn.Sequential(
+#             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
+#             nn.Conv2d(1,64,5, stride = 1),
+#             nn.BatchNorm2d(64),
+#             nn.ReLU(),
+#             # nn.MaxPool2d(2)
+#         )
+#         self.layer2 = nn.Sequential(
+#             # nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
+#             nn.Conv2d(64, 64, 3, stride = 1),
+#             nn.BatchNorm2d(64),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+# #         self.layer3 = nn.Sequential(
+# #             nn.Conv2d(32, 64, 3, stride = 1),
+# #             nn.BatchNorm2d(32),
+# #             nn.ReLU(),
+# #             nn.MaxPool2d(2)
+# #         )
+#         self.layer4 = nn.Sequential(
+#             nn.Linear( 13 * 13 * 64, 2048),
+#             nn.LeakyReLU(),
+#         )
+# #         self.layer5 = nn.Sequential(
+# #             nn.Linear(150, 100),
+# #             nn.ReLU()
+# #         )
+#         self.layer6 = nn.Sequential(
+#             # nn.Dropout(0.3),
+#             nn.Linear(2048, 50),
+#             nn.LeakyReLU(),
+#         )
+#
+#         self.layer7 = nn.Sequential(
+#             nn.AvgPool2d(kernel_size=4, stride=4, padding=0),
+#             nn.Conv2d(1, 32, 5, stride=1, padding=2),
+#             nn.BatchNorm2d(32),
+#             nn.ReLU(),
+#             nn.Conv2d(32, 32, 3, stride=1, padding=1),
 #             nn.BatchNorm2d(32),
 #             nn.ReLU(),
 #             nn.MaxPool2d(2)
 #         )
-        self.layer4 = nn.Sequential(
-            nn.Linear( 13 * 13 * 64, 2048),
-            nn.LeakyReLU(),
-        )
-#         self.layer5 = nn.Sequential(
-#             nn.Linear(150, 100),
-#             nn.ReLU()
+#         self.layer8 = nn.Sequential(
+#             nn.Linear(512, 50),
+#             nn.LeakyReLU(),
 #         )
-        self.layer6 = nn.Sequential(
-            # nn.Dropout(0.3),
-            nn.Linear(2048, 50),
-            nn.LeakyReLU(),
-        )
-
-        self.layer7 = nn.Sequential(
-            nn.AvgPool2d(kernel_size=4, stride=4, padding=0),
-            nn.Conv2d(1, 32, 5, stride=1, padding=2),
-            nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.Conv2d(32, 32, 3, stride=1, padding=1),
-            nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.layer8 = nn.Sequential(
-            nn.Linear(512, 50),
-            nn.LeakyReLU(),
-        )
-        self.layer9 = nn.Sequential(
-            nn.Linear(100, 50)
-        )
+#         self.layer9 = nn.Sequential(
+#             nn.Linear(100, 50)
+#         )
 
     def forward(self, x):
         x_1 = x.clone()
-        x_1 = self.layer7(x_1)
-        x_1 = x_1.view(x_1.shape[0], -1)
-        x_1 = self.layer8(x_1)
+        x_1 = self.layer1(x_1)
+        x_1 = self.fc1(x_1)
 
-        x = self.layer1(x)
         x = self.layer2(x)
-#         x = self.layer3(x)
-        x = x.view(-1, 13* 13 * 64)
-        x = self.layer4(x)
-#         x = self.layer5(x)
-        x = self.layer6(x)
-
-        x=torch.cat([x,x_1],dim=1)
-        x = self.layer9(x)
+        x = self.fc1(x)
+        x = torch.cat([x, x_1], dim=1)
+        x = self.fc3(x)
+#         x_1 = x.clone()
+#         x_1 = self.layer7(x_1)
+#         x_1 = x_1.view(x_1.shape[0], -1)
+#         x_1 = self.layer8(x_1)
+#
+#         x = self.layer1(x)
+#         x = self.layer2(x)
+# #         x = self.layer3(x)
+#         x = x.view(-1, 13* 13 * 64)
+#         x = self.layer4(x)
+# #         x = self.layer5(x)
+#         x = self.layer6(x)
+#
+#         x=torch.cat([x,x_1],dim=1)
+#         x = self.layer9(x)
         return x
