@@ -42,8 +42,8 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        if i % 50 == 0:
-            print(f"loss for {i} : {loss} >> acc : {loss/50}")
+        if i % 500 == 0:
+            print(f"loss for {i} : {loss} ")
 
 end = time.time()
 duration = end - start
@@ -61,4 +61,4 @@ with torch.no_grad():
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
-    print(f"acc : {correct} / 5000")
+    print(f"acc : {correct} / 5000 >> acc : {correct/50}")
