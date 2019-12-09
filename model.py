@@ -19,14 +19,14 @@ class convnet(nn.Module):
         self.layer1 = nn.Sequential(
             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
             nn.Conv2d(1,64,5, stride = 1),
-            # nn.BatchNorm2d(64),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
-#             nn.MaxPool2d(2)
+            # nn.MaxPool2d(2)
         )
         self.layer2 = nn.Sequential(
             # nn.Conv2d(6, 16, 5, stride = 1, padding = 2),
             nn.Conv2d(64, 64, 3, stride = 1),
-            # nn.BatchNorm2d(64),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
@@ -38,7 +38,7 @@ class convnet(nn.Module):
 #         )
         self.layer4 = nn.Sequential(
             nn.Linear( 13 * 13 * 64, 2048),
-            nn.ReLU(),
+            nn.LeakyReLU(),
         )
 #         self.layer5 = nn.Sequential(
 #             nn.Linear(150, 100),
@@ -47,20 +47,22 @@ class convnet(nn.Module):
         self.layer6 = nn.Sequential(
             # nn.Dropout(0.3),
             nn.Linear(2048, 50),
-            nn.ReLU(),
+            nn.LeakyReLU(),
         )
 
         self.layer7 = nn.Sequential(
             nn.AvgPool2d(kernel_size=4, stride=4, padding=0),
-            nn.Conv2d(1, 16, 5, stride=1, padding=2),
+            nn.Conv2d(1, 32, 5, stride=1, padding=2),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
-            nn.Conv2d(16, 16, 3, stride=1, padding=1),
+            nn.Conv2d(32, 32, 3, stride=1, padding=1),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.layer8 = nn.Sequential(
-            nn.Linear(256, 50),
-            nn.ReLU(),
+            nn.Linear(512, 50),
+            nn.LeakyReLU(),
         )
         self.layer9 = nn.Sequential(
             nn.Linear(100, 50)
