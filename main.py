@@ -6,7 +6,7 @@ from font_dataset import FontDataset
 start = time.time()
 
 torch.manual_seed(7777)
-torch.cuda.manual_seed_all(12312312312)
+torch.cuda.manual_seed_all(7777)
 
 train_dir = '../npy_train'
 val_dir = '../npy_val'
