@@ -51,7 +51,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        if i%5000 == 0:
+        if i%50 == 0:
             print(f"loss for {i} : {loss}")
 
 end = time.time()
