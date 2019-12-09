@@ -10,6 +10,10 @@ class FontDataset():
     def __init__(self, npy_dir, max_dataset_size=float("inf")):
         self.dir_path = npy_dir
         self.to_tensor = transforms.ToTensor()
+        # self.to_tensor = transforms.Compose([
+        #     transforms.ToTensor(),
+        #     transforms.Normalize((1.,), (-1.,))
+        # ])
 
         entry = []
         files = glob.glob1(npy_dir, '*npy')
