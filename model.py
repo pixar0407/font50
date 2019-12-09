@@ -50,7 +50,7 @@ class convnet(nn.Module):
         )
 
         self.layer7 = nn.Sequential(
-            nn.AvgPool2D(kernel_size=4, stride=4, padding=0),
+            nn.AvgPool2d(kernel_size=4, stride=4, padding=0),
             nn.Conv2d(1, 32, 5, stride=1, padding=2),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, stride=1, padding=1),
