@@ -46,6 +46,9 @@ class convnet(nn.Module):
         self.fc3 = nn.Sequential(
             nn.Linear( 100 , 50),
         )
+
+
+        # 양날개 전 버전
 #         self.layer1 = nn.Sequential(
 #             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
 #             nn.Conv2d(1,64,5, stride = 1),
@@ -127,3 +130,33 @@ class convnet(nn.Module):
 #         x=torch.cat([x,x_1],dim=1)
 #         x = self.layer9(x)
         return x
+    
+    
+    
+    #현성 양날개
+# class convnet(nn.Module):
+#     def __init__(self):
+#         super().__init__()
+#         self.layer1 = nn.Sequential(
+#             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
+#             nn.Conv2d(1, 64, 5, stride=1),
+#             #             nn.BatchNorm2d(16),
+#             nn.ReLU(),
+#             #             nn.MaxPool2d(2)
+#             nn.Conv2d(64, 64, 5, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.layer2 = nn.Sequential(
+#             nn.Linear(13 * 13 * 64, 2048),
+#             nn.LeakyReLU(0.2, inplace=True)
+#         )
+#         self.layer3 = nn.Sequential(
+#             nn.Conv2d(64, 128, 3, stride=1),
+#             nn.ReLU(),
+#             nn.Conv2d(128, 128, 3, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.layer4 = nn.Linear(4 * 4 * 128, 50)
+#         self.layer5 = nn.Linear(2048, 50)
