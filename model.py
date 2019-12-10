@@ -33,7 +33,7 @@ class convnet(nn.Module):
             nn.Linear( 12 * 12 * 64, 2048), # 12 12
             nn.LeakyReLU(inplace=True),
             nn.Linear(2048, 50),
-            nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
+            nn.Sigmoid(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
         )
 
         self.layer2 = nn.Sequential(
@@ -47,7 +47,7 @@ class convnet(nn.Module):
             nn.Linear( 14 * 14 * 64, 2048), # channel depth 64
             nn.LeakyReLU(inplace=True),
             nn.Linear(2048, 50),
-            nn.LeakyReLU(inplace=True),
+            nn.Sigmoid(inplace=True),
         )
         self.fc3 = nn.Sequential(
             nn.Linear(1296, 50),
