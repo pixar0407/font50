@@ -330,7 +330,7 @@ import torch.nn.functional as F
 
 class Swish(nn.Module):
     def forward(self, x):
-        return x * F.sigmoid(x)
+        return x * torch.sigmoid(x)
 
 # 이거 반날개(현성+양곤)인데, 3 3 3 3 이고 concat 안하고 x+x_1인데 p100에서 97.38% 4분 20초이다. / 같은 실험 vm으로 땡겨와서 3분 37초 97.46
 # 일단 leaky leru 를 0.001로 96.68%
