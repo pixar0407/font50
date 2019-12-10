@@ -12,7 +12,7 @@ class FontDataset():
         # self.to_tensor = transforms.ToTensor()
         self.to_tensor = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.5,), (-0.5,))
+            transforms.Normalize((1.0,), (-1.0,)) #transform from 0~1 > 1~0
         ])
 
         entry = []
