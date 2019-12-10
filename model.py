@@ -347,7 +347,7 @@ class convnet(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear(13 * 13 * 64, 2048),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(), # 리키 포인트
             nn.Linear(2048, 50),
             # nn.LeakyReLU(0.2, inplace=True)
         )
