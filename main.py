@@ -16,7 +16,7 @@ val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=2, shuffle=True)
+                                           batch_size=3, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=1)
@@ -26,9 +26,9 @@ model = convnet().to(device)
 
 criterion = nn.CrossEntropyLoss()
 # optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=7e-6) # 7e-6이 최고 with batch 1 epoch 2
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5) # 7e-6이 최고 with batch 1 epoch 2
 
-num_epochs = 4
+num_epochs = 2
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         # Assign Tensors to Configured Device
