@@ -417,7 +417,6 @@ class Swish(nn.Module):
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.swish = Swish()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 64, 5, stride=1),
             nn.ReLU(),
