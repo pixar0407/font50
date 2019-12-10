@@ -19,27 +19,28 @@ class convnet(nn.Module):
         self.layer1 = nn.Sequential(
             nn.Conv2d(1,64,5, stride = 1),
             nn.ReLU(),
-            nn.Conv2d(64, 64, 5, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.layer2 = nn.Sequential(
-            nn.Conv2d(1,64,3, stride = 1),
-            nn.ReLU(),
-            nn.Conv2d(64, 64,3, stride=1),
+            nn.Conv2d(64, 64, 5, stride=1), # 5
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear( 14 * 14 * 64, 3136),
-            nn.LeakyReLU(),
-            nn.Linear(3136, 50),
-            nn.LeakyReLU(),
-        )
-        self.fc2 = nn.Sequential(
-            nn.Linear( 12 * 12 * 64, 2048),
+            nn.Linear( 12 * 12 * 64, 2048), # 12 12
             nn.LeakyReLU(),
             nn.Linear(2048, 50),
+            nn.LeakyReLU(),
+        )
+
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(1,96,3, stride = 1), # channel depth 64
+            nn.ReLU(),
+            nn.Conv2d(96, 96,3, stride=1), # channel depth 64
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc2 = nn.Sequential(
+            nn.Linear( 14 * 14 * 96, 3136), # channel depth 64
+            nn.LeakyReLU(),
+            nn.Linear(3136, 50),
             nn.LeakyReLU(),
         )
         self.fc3 = nn.Sequential(
@@ -102,11 +103,11 @@ class convnet(nn.Module):
 
         x_1 = self.layer1(x_1)
         x_1 = x_1.view(x_1.shape[0], -1)
-        x_1 = self.fc2(x_1)
+        x_1 = self.fc1(x_1)
 
         x = self.layer2(x)
         x = x.view(x.shape[0], -1)
-        x = self.fc1(x)
+        x = self.fc2(x)
 
         x = torch.cat([x, x_1], dim=1)
         x = self.fc3(x)
