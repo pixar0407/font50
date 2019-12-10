@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 #12/06
 # normalization -1 ~ 1
 # edge cv2
@@ -332,13 +333,16 @@ import torch.nn as nn
 # 이거 반날개(현성+양곤)인데, 3 3 3 3 이고 concat 안하고 x+x_1인데 p100에서 97.38% 4분 20초이다. / 같은 실험 vm으로 땡겨와서 3분 37초 97.46
 # 일단 leaky leru 를 0.001로 96.68%
 class convnet(nn.Module):
+    def swish(x):
+        return x * F.sigmoid(x)
+
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 64, 3, stride=1),
-            nn.ReLU(),
+            nn.self.swish(),
             nn.Conv2d(64, 64, 3, stride=1),
-            nn.ReLU(),
+            nn.self.swish(),
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
@@ -351,9 +355,9 @@ class convnet(nn.Module):
 
         self.layer2 = nn.Sequential(
             nn.Conv2d(64, 128, 3, stride=1),
-            nn.ReLU(),
+            nn.self.swish(),
             nn.Conv2d(128, 128, 3, stride=1),
-            nn.ReLU(),
+            nn.self.swish(),
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(

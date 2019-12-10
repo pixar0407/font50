@@ -1,6 +1,7 @@
 import torch
 import time
 import torch.nn as nn
+import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from model import convnet
 from font_dataset import FontDataset
@@ -15,7 +16,7 @@ val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=3, shuffle=True)
+                                           batch_size=2, shuffle=True)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=1)
@@ -27,7 +28,7 @@ criterion = nn.CrossEntropyLoss()
 # optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5)
 
-num_epochs = 4
+num_epochs = 2
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         # Assign Tensors to Configured Device
