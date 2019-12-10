@@ -150,51 +150,115 @@ import torch.nn as nn
     #######################################################
     #######################################################
     #######################################################
-    #현성 양날개
+    #현성 양날개 를 내 맛대로 변화
+
+# class convnet(nn.Module):
+#     def __init__(self):
+#         super().__init__()
+#         self.layer1 = nn.Sequential(
+#             nn.Conv2d(1, 64, 3, stride=1),
+#             nn.ReLU(),
+#             nn.Conv2d(64, 64, 3, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc1 = nn.Sequential(
+#             nn.Linear(14 * 14 * 64, 3136),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             nn.Linear(3136, 784),
+#             nn.LeakyReLU(0.2, inplace=True)
+#         )
+#         # self.fc2 = nn.Linear(2048, 50)
+#
+#         self.layer2 = nn.Sequential(
+#             nn.Conv2d(64, 128, 3, stride=1),
+#             nn.ReLU(),
+#             nn.Conv2d(128, 128, 3, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc3 = nn.Sequential(
+#             nn.Linear(5 * 5 * 128, 512),
+#             nn.LeakyReLU(0.2, inplace=True)
+#         )
+#
+#         self.fc4 = nn.Linear(1296, 50)
+#     def forward(self, x):
+#         x = self.layer1(x)
+#         x_1 = x.clone()
+#
+#         x = x.view(x.shape[0], -1)
+#         x = self.fc1(x)
+#         # x = self.fc2(x)
+#
+#         x_1 = self.layer2(x_1)
+#         x_1 = x_1.view(x_1.shape[0], -1)
+#         x_1 = self.fc3(x_1)
+#
+#         x = torch.cat([x,x_1],dim=1)
+#         x = self.fc4(x)
+#         return x
 
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 64, 3, stride=1),
+            nn.Conv2d(1, 16, 5, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(16, 16, 5, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc1 = nn.Sequential(
+            nn.Linear(12 * 12 * 16, 576), #
+            nn.LeakyReLU(0.2, inplace=True)
+            # nn.Linear(576, 114), #
+            # nn.LeakyReLU(0.2, inplace=True)
+        )
+
+        # 12 by 12 들어간다.
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(16, 64, 3, stride=1),
             nn.ReLU(),
             nn.Conv2d(64, 64, 3, stride=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
-        self.fc1 = nn.Sequential(
-            nn.Linear(14 * 14 * 64, 3136),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(3136, 784),
+        self.fc2 = nn.Sequential(
+            nn.Linear(4 * 4 * 64, 256),
             nn.LeakyReLU(0.2, inplace=True)
         )
-        # self.fc2 = nn.Linear(2048, 50)
 
-        self.layer2 = nn.Sequential(
+        # 4 by 4 들어간다.
+        self.layer3 = nn.Sequential(
             nn.Conv2d(64, 128, 3, stride=1),
-            nn.ReLU(),
-            nn.Conv2d(128, 128, 3, stride=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
-        self.fc3 = nn.Sequential(
-            nn.Linear(5 * 5 * 128, 512),
-            nn.LeakyReLU(0.2, inplace=True)
-        )
+        # self.fc3 = nn.Sequential(
+        #     nn.Linear(1 * 1 * 128, 128),
+        #     nn.LeakyReLU(0.2, inplace=True)
+        # )
 
-        self.fc4 = nn.Linear(1296, 50)
+        self.fc4 = nn.Linear(960, 50)
+        
     def forward(self, x):
         x = self.layer1(x)
         x_1 = x.clone()
 
         x = x.view(x.shape[0], -1)
-        x = self.fc1(x)
-        # x = self.fc2(x)
+        x = self.fc1(x)   # 576
+
 
         x_1 = self.layer2(x_1)
-        x_1 = x_1.view(x.shape[0], -1)
-        x_1 = self.fc3(x_1)
+        x_2 = x_1.clone()
 
-        x = torch.cat([x,x_1],dim=1)
+        x_1 = x_1.view(x_1.shape[0], -1)
+        x_1 = self.fc2(x_1) # 256
+
+        x_2 = self.layer3(x_2)
+        x_2 = x_2.view(x_2.shape[0], -1) # 128
+
+        x = torch.cat([x,x_1,x_2],dim=1)
         x = self.fc4(x)
         return x
