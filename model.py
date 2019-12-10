@@ -100,10 +100,11 @@ class convnet(nn.Module):
     def forward(self, x):
         x_1 = x.clone()
         x_1 = self.layer1(x_1)
-        x_1 = self.fc1(x_1)
+        x_1 = self.fc2(x_1)
 
         x = self.layer2(x)
-        x = self.fc2(x)
+        x = self.fc1(x)
+
         x = torch.cat([x, x_1], dim=1)
         x = self.fc3(x)
 #         x_1 = x.clone()
