@@ -156,14 +156,14 @@ class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 64, 5, stride=1),
+            nn.Conv2d(1, 64, 3, stride=1),
             nn.ReLU(),
-            nn.Conv2d(64, 64, 5, stride=1),
+            nn.Conv2d(64, 64, 3, stride=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear(12 * 12 * 64, 2048),
+            nn.Linear(14 * 14 * 64, 2048),
             nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(2048, 50),
             # nn.LeakyReLU(0.2, inplace=True)
@@ -178,7 +178,7 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(4 * 4 * 128, 50),
+            nn.Linear(5 * 5 * 128, 50),
             # nn.LeakyReLU(0.2, inplace=True)
         )
 
