@@ -11,7 +11,7 @@ torch.manual_seed(7777)
 torch.cuda.manual_seed(7777)
 
 train_dir = '../npy_train'
-val_dir = './npy_val'
+val_dir = '../npy_val'
 train_dataset = FontDataset(train_dir)
 val_dataset = FontDataset(val_dir)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
