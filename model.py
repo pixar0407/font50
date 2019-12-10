@@ -31,14 +31,14 @@ class convnet(nn.Module):
         )
 
         self.layer2 = nn.Sequential(
-            nn.Conv2d(1,96,3, stride = 1), # channel depth 64
+            nn.Conv2d(1,64,3, stride = 1), # channel depth 64
             nn.ReLU(),
-            nn.Conv2d(96, 96,3, stride=1), # channel depth 64
+            nn.Conv2d(64, 64,3, stride=1), # channel depth 64
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.fc2 = nn.Sequential(
-            nn.Linear( 14 * 14 * 96, 3136), # channel depth 64
+            nn.Linear( 14 * 14 * 64, 3136), # channel depth 64
             nn.LeakyReLU(),
             nn.Linear(3136, 50),
             nn.LeakyReLU(),
