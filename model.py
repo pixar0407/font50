@@ -13,42 +13,69 @@ import torch.nn as nn
 # reshape 이상한 4191 / 5000
 # 위와 동일 2 epoch 4583 / 5000
 
-class convnet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.layer1 = nn.Sequential(
-            nn.Conv2d(1,64,5, stride = 1),
-            nn.ReLU(),
-            nn.Conv2d(64, 64, 5, stride=1), # 5
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.fc1 = nn.Sequential(
-            nn.Linear( 12 * 12 * 64, 2048), # 12 12
-            nn.LeakyReLU(inplace=True),
-            nn.Linear(2048, 512),
-            nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
-        )
 
-        self.layer2 = nn.Sequential(
-            nn.Conv2d(1,64,3, stride = 1), # channel depth 64
-            nn.ReLU(),
-            nn.Conv2d(64, 64,3, stride=1), # channel depth 64
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.fc2 = nn.Sequential(
-            nn.Linear( 14 * 14 * 64, 3136), # channel depth 64
-            nn.LeakyReLU(inplace=True),
-            nn.Linear(3136, 784),
-            nn.LeakyReLU(inplace=True),
-        )
-        self.fc3 = nn.Sequential(
-            nn.Linear(1296, 50),
-        )
+#######################################################
+#######################################################
+#######################################################
+#######################################################
+# 김양곤 양날개 버전
+# class convnet(nn.Module):
+#     def __init__(self):
+#         super().__init__()
+#         self.layer1 = nn.Sequential(
+#             nn.Conv2d(1,64,5, stride = 1),
+#             nn.ReLU(),
+#             nn.Conv2d(64, 64, 5, stride=1), # 5
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc1 = nn.Sequential(
+#             nn.Linear( 12 * 12 * 64, 2048), # 12 12
+#             nn.LeakyReLU(inplace=True),
+#             nn.Linear(2048, 512),
+#             nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
+#         )
+#
+#         self.layer2 = nn.Sequential(
+#             nn.Conv2d(1,64,3, stride = 1), # channel depth 64
+#             nn.ReLU(),
+#             nn.Conv2d(64, 64,3, stride=1), # channel depth 64
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc2 = nn.Sequential(
+#             nn.Linear( 14 * 14 * 64, 3136), # channel depth 64
+#             nn.LeakyReLU(inplace=True),
+#             nn.Linear(3136, 784),
+#             nn.LeakyReLU(inplace=True),
+#         )
+#         self.fc3 = nn.Sequential(
+#             nn.Linear(1296, 50),
+#         )
+#
+#     def forward(self, x):
+#         x_1 = x.clone()
+#
+#         x_1 = self.layer1(x_1)
+#         x_1 = x_1.view(x_1.shape[0], -1)
+#         x_1 = self.fc1(x_1)
+#
+#         x = self.layer2(x)
+#         x = x.view(x.shape[0], -1)
+#         x = self.fc2(x)
+#
+#         x = torch.cat([x, x_1], dim=1)
+#         x = self.fc3(x)
+#         return x
 
-
+        #######################################################
+        #######################################################
+        #######################################################
+        #######################################################
         # 양날개 전 버전
+# class convnet(nn.Module):
+#     def __init__(self):
+#         super().__init__()
 #         self.layer1 = nn.Sequential(
 #             # nn.Conv2d(1, 6, 5, stride = 1, padding = 2),
 #             nn.Conv2d(1,64,5, stride = 1),
@@ -101,19 +128,7 @@ class convnet(nn.Module):
 #             nn.Linear(100, 50)
 #         )
 
-    def forward(self, x):
-        x_1 = x.clone()
-
-        x_1 = self.layer1(x_1)
-        x_1 = x_1.view(x_1.shape[0], -1)
-        x_1 = self.fc1(x_1)
-
-        x = self.layer2(x)
-        x = x.view(x.shape[0], -1)
-        x = self.fc2(x)
-
-        x = torch.cat([x, x_1], dim=1)
-        x = self.fc3(x)
+    # def forward(self, x):
 #         x_1 = x.clone()
 #         x_1 = self.layer7(x_1)
 #         x_1 = x_1.view(x_1.shape[0], -1)
@@ -129,48 +144,49 @@ class convnet(nn.Module):
 #
 #         x=torch.cat([x,x_1],dim=1)
 #         x = self.layer9(x)
-        return x
+#         return x
 
     #######################################################
     #######################################################
     #######################################################
     #######################################################
     #현성 양날개
-# class convnet(nn.Module):
-#     def __init__(self):
-#         super().__init__()
-#         self.layer1 = nn.Sequential(
-#             nn.Conv2d(1, 64, 5, stride=1),
-#             nn.ReLU(),
-#             nn.Conv2d(64, 64, 5, stride=1),
-#             nn.ReLU(),
-#             nn.MaxPool2d(2)
-#         )
-#         self.fc1 = nn.Sequential(
-#             nn.Linear(12 * 12 * 64, 2048),
-#             nn.LeakyReLU(0.2, inplace=True)
-#         )
-#         self.fc2 = nn.Linear(2048, 50)
-#
-#         self.layer2 = nn.Sequential(
-#             nn.Conv2d(64, 128, 3, stride=1),
-#             nn.ReLU(),
-#             nn.Conv2d(128, 128, 3, stride=1),
-#             nn.ReLU(),
-#             nn.MaxPool2d(2)
-#         )
-#         self.fc3 = nn.Linear(4 * 4 * 128, 50)
-#
-#     def forward(self, x):
-#         x = self.layer1(x)
-#         x_1 = x.clone()
-#
-#         x = x.view(x.shape[0], -1)
-#         x = self.fc1(x)
-#         x = self.fc2(x)
-#
-#         x_1 = self.layer2(x_1)
-#         x_1 = x_1.view(x.shape[0], -1)
-#         x_1 = self.fc3(x_1)
-#
-#         return x + x_1
+
+class convnet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(1, 64, 5, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 5, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc1 = nn.Sequential(
+            nn.Linear(12 * 12 * 64, 2048),
+            nn.LeakyReLU(0.2, inplace=True)
+        )
+        self.fc2 = nn.Linear(2048, 50)
+
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(64, 128, 3, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(128, 128, 3, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc3 = nn.Linear(4 * 4 * 128, 50)
+
+    def forward(self, x):
+        x = self.layer1(x)
+        x_1 = x.clone()
+
+        x = x.view(x.shape[0], -1)
+        x = self.fc1(x)
+        x = self.fc2(x)
+
+        x_1 = self.layer2(x_1)
+        x_1 = x_1.view(x.shape[0], -1)
+        x_1 = self.fc3(x_1)
+
+        return x + x_1
