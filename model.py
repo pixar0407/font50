@@ -216,8 +216,8 @@ class convnet(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear(12 * 12 * 16, 576), #
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(576, 50) #
+            nn.LeakyReLU(0.2, inplace=True)
+            # nn.Linear(576, 114), #
             # nn.LeakyReLU(0.2, inplace=True)
         )
 
@@ -230,8 +230,8 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc2 = nn.Sequential(
-            nn.Linear(4 * 4 * 64, 50)
-            # nn.LeakyReLU(0.2, inplace=True)
+            nn.Linear(4 * 4 * 64, 256),
+            nn.LeakyReLU(0.2, inplace=True)
         )
 
         # 4 by 4 들어간다.
@@ -240,12 +240,12 @@ class convnet(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
-        self.fc3 = nn.Sequential(
-            nn.Linear(128, 50)
-            # nn.LeakyReLU(0.2, inplace=True)
-        )
+        # self.fc3 = nn.Sequential(
+        #     nn.Linear(1 * 1 * 128, 128),
+        #     nn.LeakyReLU(0.2, inplace=True)
+        # )
 
-        # self.concatfc = nn.Linear(960, 50)
+        self.concatfc = nn.Linear(960, 50)
 
     def forward(self, x):
         x = self.layer1(x)
@@ -262,10 +262,8 @@ class convnet(nn.Module):
         x_1 = self.fc2(x_1) # 256
 
         x_2 = self.layer3(x_2)
-        x_2 = x_2.view(x_2.shape[0], -1)
-        x_2 = self.fc3(x_2)
-        # x_2 = x_2.view(x_2.shape[0], -1) # 128
+        x_2 = x_2.view(x_2.shape[0], -1) # 128
 
-        # x = torch.cat([x,x_1,x_2],dim=1)
-        # x = self.concatfc(x)
-        return x + x_1 + x_2
+        x = torch.cat([x,x_1,x_2],dim=1)
+        x = self.concatfc(x)
+        return x
