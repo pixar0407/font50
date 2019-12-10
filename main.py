@@ -26,7 +26,7 @@ model = convnet().to(device)
 
 criterion = nn.CrossEntropyLoss()
 # optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.00008, weight_decay=7e-6) # 7e-6이 최고 with batch 1 epoch 2 with lr=0.0001
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=7e-6) # 7e-6이 최고 with batch 1 epoch 2 with lr=0.0001
 
 num_epochs = 2
 for epoch in range(num_epochs):
