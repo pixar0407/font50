@@ -358,7 +358,7 @@ class convnet(nn.Module):
             nn.ReLU(),
             nn.Conv2d(128, 128, 3, stride=1),
             nn.ReLU(),
-            nn.MaxPool2d(2)
+            nn.AdaptiveMaxPool2d(4)
         )
         self.fc3 = nn.Sequential(
             nn.Linear(4 * 4 * 128, 50),
