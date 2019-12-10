@@ -329,8 +329,8 @@ import torch.nn as nn
 
 
 
-# 이거 반날개(현성+양곤)인데, 3 3 3 3 이고 concat 안하고 x+x_1인데 p100에서 97.38% 4분 20초이다.
-# 일단 leaky leru 를 0.001로
+# 이거 반날개(현성+양곤)인데, 3 3 3 3 이고 concat 안하고 x+x_1인데 p100에서 97.38% 4분 20초이다. / 같은 실험 vm으로 땡겨와서 3분 37초 97.46
+# 일단 leaky leru 를 0.001로 96.68%
 class convnet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -343,9 +343,9 @@ class convnet(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear(14 * 14 * 64, 3136),
-            nn.LeakyReLU(0.01, inplace=True),
+            nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(3136, 50),
-            nn.LeakyReLU(0.01, inplace=True)
+            nn.LeakyReLU(0.2, inplace=True)
         )
         # self.fc2 = nn.Linear(2048, 50)
 
@@ -358,7 +358,7 @@ class convnet(nn.Module):
         )
         self.fc3 = nn.Sequential(
             nn.Linear(5 * 5 * 128, 50),
-            nn.LeakyReLU(0.01, inplace=True)
+            nn.LeakyReLU(0.2, inplace=True)
         )
 
         # self.fc4 = nn.Linear(100, 50)
