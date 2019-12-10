@@ -340,18 +340,18 @@ class convnet(nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 16, 5, stride=1),
+            nn.Conv2d(1, 16, 5, stride=1, padding=2),
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2),
-            nn.Conv2d(16, 32, 5, stride=1),
+            nn.Conv2d(16, 32, 5, stride=1, padding=2),
             nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear(5 * 5 * 32, 200),
-            nn.Linear(200, 50)
+            nn.Linear(8 * 8 * 32, 120),
+            nn.Linear(120, 50)
         )
 
     def forward(self, x):
