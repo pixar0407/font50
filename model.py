@@ -351,7 +351,7 @@ class convnet(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear(5 * 5 * 32, 200),
-            nn.Linear(2048, 50)
+            nn.Linear(200, 50)
         )
 
     def forward(self, x):
