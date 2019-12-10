@@ -241,7 +241,7 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(1 * 1 * 128, 50)
+            nn.Linear(128, 50)
             # nn.LeakyReLU(0.2, inplace=True)
         )
 
@@ -262,6 +262,7 @@ class convnet(nn.Module):
         x_1 = self.fc2(x_1) # 256
 
         x_2 = self.layer3(x_2)
+        x_2 = x_2.view(x_2.shape[0], -1)
         x_2 = self.fc3(x_2)
         # x_2 = x_2.view(x_2.shape[0], -1) # 128
 
