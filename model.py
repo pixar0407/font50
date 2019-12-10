@@ -184,7 +184,7 @@ class convnet(nn.Module):
             nn.LeakyReLU(0.2, inplace=True)
         )
 
-        self.fc4 = nn.Linear(1296, 50)
+        self.fc4 = nn.Linear(1294, 50)
     def forward(self, x):
         x = self.layer1(x)
         x_1 = x.clone()
