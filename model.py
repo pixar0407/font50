@@ -18,55 +18,55 @@ import torch.nn as nn
 #######################################################
 #######################################################
 #######################################################
-# 김양곤 양날개 버전
-# class convnet(nn.Module):
-#     def __init__(self):
-#         super().__init__()
-#         self.layer1 = nn.Sequential(
-#             nn.Conv2d(1,64,5, stride = 1),
-#             nn.ReLU(),
-#             nn.Conv2d(64, 64, 5, stride=1), # 5
-#             nn.ReLU(),
-#             nn.MaxPool2d(2)
-#         )
-#         self.fc1 = nn.Sequential(
-#             nn.Linear( 12 * 12 * 64, 2048), # 12 12
-#             nn.LeakyReLU(inplace=True),
-#             nn.Linear(2048, 512),
-#             nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
-#         )
-#
-#         self.layer2 = nn.Sequential(
-#             nn.Conv2d(1,64,3, stride = 1), # channel depth 64
-#             nn.ReLU(),
-#             nn.Conv2d(64, 64,3, stride=1), # channel depth 64
-#             nn.ReLU(),
-#             nn.MaxPool2d(2)
-#         )
-#         self.fc2 = nn.Sequential(
-#             nn.Linear( 14 * 14 * 64, 2048), # channel depth 64
-#             nn.LeakyReLU(inplace=True),
-#             nn.Linear(2048, 784),
-#             nn.LeakyReLU(inplace=True),
-#         )
-#         self.fc3 = nn.Sequential(
-#             nn.Linear(1296, 50),
-#         )
-#
-#     def forward(self, x):
-#         x_1 = x.clone()
-#
-#         x_1 = self.layer1(x_1)
-#         x_1 = x_1.view(x_1.shape[0], -1)
-#         x_1 = self.fc1(x_1)
-#
-#         x = self.layer2(x)
-#         x = x.view(x.shape[0], -1)
-#         x = self.fc2(x)
-#
-#         x = torch.cat([x, x_1], dim=1)
-#         x = self.fc3(x)
-#         return x
+김양곤 양날개 버전
+class convnet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(1,64,5, stride = 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 5, stride=1), # 5
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc1 = nn.Sequential(
+            nn.Linear( 12 * 12 * 64, 2048), # 12 12
+            nn.LeakyReLU(inplace=True),
+            nn.Linear(2048, 512),
+            nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
+        )
+
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(1,64,3, stride = 1), # channel depth 64
+            nn.ReLU(),
+            nn.Conv2d(64, 64,3, stride=1), # channel depth 64
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc2 = nn.Sequential(
+            nn.Linear( 14 * 14 * 64, 2048), # channel depth 64
+            nn.LeakyReLU(inplace=True),
+            nn.Linear(2048, 784),
+            nn.LeakyReLU(inplace=True),
+        )
+        self.fc3 = nn.Sequential(
+            nn.Linear(1296, 50),
+        )
+
+    def forward(self, x):
+        x_1 = x.clone()
+
+        x_1 = self.layer1(x_1)
+        x_1 = x_1.view(x_1.shape[0], -1)
+        x_1 = self.fc1(x_1)
+
+        x = self.layer2(x)
+        x = x.view(x.shape[0], -1)
+        x = self.fc2(x)
+
+        x = torch.cat([x, x_1], dim=1)
+        x = self.fc3(x)
+        return x
 
         #######################################################
         #######################################################
@@ -204,66 +204,66 @@ import torch.nn as nn
 #########################
 #########################
 #########################3단
-class convnet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 16, 5, stride=1),
-            nn.ReLU(),
-            nn.Conv2d(16, 16, 5, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.fc1 = nn.Sequential(
-            nn.Linear(12 * 12 * 16, 576), #
-            nn.LeakyReLU(0.2, inplace=True)
-            # nn.Linear(576, 114), #
-            # nn.LeakyReLU(0.2, inplace=True)
-        )
-
-        # 12 by 12 들어간다.
-        self.layer2 = nn.Sequential(
-            nn.Conv2d(16, 64, 3, stride=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 64, 3, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        self.fc2 = nn.Sequential(
-            nn.Linear(4 * 4 * 64, 256),
-            nn.LeakyReLU(0.2, inplace=True)
-        )
-
-        # 4 by 4 들어간다.
-        self.layer3 = nn.Sequential(
-            nn.Conv2d(64, 128, 3, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-        # self.fc3 = nn.Sequential(
-        #     nn.Linear(1 * 1 * 128, 128),
-        #     nn.LeakyReLU(0.2, inplace=True)
-        # )
-
-        self.concatfc = nn.Linear(960, 50)
-
-    def forward(self, x):
-        x = self.layer1(x)
-        x_1 = x.clone()
-
-        x = x.view(x.shape[0], -1)
-        x = self.fc1(x)   # 576
-
-
-        x_1 = self.layer2(x_1)
-        x_2 = x_1.clone()
-
-        x_1 = x_1.view(x_1.shape[0], -1)
-        x_1 = self.fc2(x_1) # 256
-
-        x_2 = self.layer3(x_2)
-        x_2 = x_2.view(x_2.shape[0], -1) # 128
-
-        x = torch.cat([x,x_1,x_2],dim=1)
-        x = self.concatfc(x)
-        return x
+# class convnet(nn.Module):
+#     def __init__(self):
+#         super().__init__()
+#         self.layer1 = nn.Sequential(
+#             nn.Conv2d(1, 16, 5, stride=1),
+#             nn.ReLU(),
+#             nn.Conv2d(16, 16, 5, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc1 = nn.Sequential(
+#             nn.Linear(12 * 12 * 16, 576), #
+#             nn.LeakyReLU(0.2, inplace=True)
+#             # nn.Linear(576, 114), #
+#             # nn.LeakyReLU(0.2, inplace=True)
+#         )
+#
+#         # 12 by 12 들어간다.
+#         self.layer2 = nn.Sequential(
+#             nn.Conv2d(16, 64, 3, stride=1),
+#             nn.ReLU(),
+#             nn.Conv2d(64, 64, 3, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         self.fc2 = nn.Sequential(
+#             nn.Linear(4 * 4 * 64, 256),
+#             nn.LeakyReLU(0.2, inplace=True)
+#         )
+#
+#         # 4 by 4 들어간다.
+#         self.layer3 = nn.Sequential(
+#             nn.Conv2d(64, 128, 3, stride=1),
+#             nn.ReLU(),
+#             nn.MaxPool2d(2)
+#         )
+#         # self.fc3 = nn.Sequential(
+#         #     nn.Linear(1 * 1 * 128, 128),
+#         #     nn.LeakyReLU(0.2, inplace=True)
+#         # )
+#
+#         self.concatfc = nn.Linear(960, 50)
+#
+#     def forward(self, x):
+#         x = self.layer1(x)
+#         x_1 = x.clone()
+#
+#         x = x.view(x.shape[0], -1)
+#         x = self.fc1(x)   # 576
+#
+#
+#         x_1 = self.layer2(x_1)
+#         x_2 = x_1.clone()
+#
+#         x_1 = x_1.view(x_1.shape[0], -1)
+#         x_1 = self.fc2(x_1) # 256
+#
+#         x_2 = self.layer3(x_2)
+#         x_2 = x_2.view(x_2.shape[0], -1) # 128
+#
+#         x = torch.cat([x,x_1,x_2],dim=1)
+#         x = self.concatfc(x)
+#         return x
