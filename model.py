@@ -167,7 +167,7 @@ class convnet(nn.Module):
         self.fc1 = nn.Sequential(
             nn.Linear(14 * 14 * 64, 3136),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(2048, 784),
+            nn.Linear(3136, 784),
             nn.LeakyReLU(0.2, inplace=True)
         )
         # self.fc2 = nn.Linear(2048, 50)
