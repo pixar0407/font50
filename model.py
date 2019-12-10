@@ -176,7 +176,7 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(4 * 4 * 128, 50),
+            nn.Linear(4 * 4 * 128, 512),
             nn.LeakyReLU(0.2, inplace=True)
         )
 
