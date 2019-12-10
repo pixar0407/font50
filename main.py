@@ -26,9 +26,9 @@ model = convnet().to(device)
 
 criterion = nn.CrossEntropyLoss()
 # optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=1.5e-5)
 
-num_epochs = 6
+num_epochs = 2
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         # Assign Tensors to Configured Device
