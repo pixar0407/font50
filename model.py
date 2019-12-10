@@ -25,9 +25,9 @@ class convnet(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear( 12 * 12 * 64, 2048), # 12 12
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.05, inplace=True),
             nn.Linear(2048, 50),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.05, inplace=True),
         )
 
         self.layer2 = nn.Sequential(
@@ -39,9 +39,9 @@ class convnet(nn.Module):
         )
         self.fc2 = nn.Sequential(
             nn.Linear( 14 * 14 * 64, 3136), # channel depth 64
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.05, inplace=True),
             nn.Linear(3136, 50),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.05, inplace=True),
         )
         self.fc3 = nn.Sequential(
             nn.Linear( 100 , 50),
