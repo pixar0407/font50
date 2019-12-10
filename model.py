@@ -341,12 +341,13 @@ class convnet(nn.Module):
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 64, 5, stride=1),
             nn.ReLU(),
+            nn.MaxPool2d(2),
             nn.Conv2d(64, 64, 3, stride=1),
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear(13 * 13 * 64, 2048),
+            nn.Linear(6 * 6 * 64, 2048),
             nn.ReLU(), # 리키 포인트
             nn.Linear(2048, 50),
             # nn.LeakyReLU(0.2, inplace=True)
@@ -361,7 +362,7 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(4 * 4 * 128, 50),
+            nn.Linear(1 * 1 * 128, 50),
             # nn.LeakyReLU(0.2, inplace=True)
         )
 
