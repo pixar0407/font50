@@ -32,7 +32,7 @@ class convnet(nn.Module):
         self.fc1 = nn.Sequential(
             nn.Linear( 12 * 12 * 64, 2048), # 12 12
             nn.LeakyReLU(inplace=True),
-            nn.Linear(2048, 50),
+            nn.Linear(2048, 512),
             nn.LeakyReLU(inplace=True), # leaky relu default 0.01일때도 잘 됐음. inplace 넣으니깐 좀 빨라지긴 함
         )
 
@@ -46,7 +46,7 @@ class convnet(nn.Module):
         self.fc2 = nn.Sequential(
             nn.Linear( 14 * 14 * 64, 2048), # channel depth 64
             nn.LeakyReLU(inplace=True),
-            nn.Linear(2048, 50),
+            nn.Linear(2048, 784),
             nn.LeakyReLU(inplace=True),
         )
         self.fc3 = nn.Sequential(
