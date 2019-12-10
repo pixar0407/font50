@@ -163,10 +163,10 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc1 = nn.Sequential(
-            nn.Linear(14 * 14 * 64, 2048),
+            nn.Linear(14 * 14 * 64, 3136),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(2048, 50),
-            # nn.LeakyReLU(0.2, inplace=True)
+            nn.Linear(2048, 784),
+            nn.LeakyReLU(0.2, inplace=True)
         )
         # self.fc2 = nn.Linear(2048, 50)
 
@@ -178,11 +178,11 @@ class convnet(nn.Module):
             nn.MaxPool2d(2)
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(5 * 5 * 128, 50),
-            # nn.LeakyReLU(0.2, inplace=True)
+            nn.Linear(5 * 5 * 128, 510),
+            nn.LeakyReLU(0.2, inplace=True)
         )
 
-        # self.fc4 = nn.Linear(1296, 50)
+        self.fc4 = nn.Linear(1296, 50)
     def forward(self, x):
         x = self.layer1(x)
         x_1 = x.clone()
@@ -195,9 +195,9 @@ class convnet(nn.Module):
         x_1 = x_1.view(x_1.shape[0], -1)
         x_1 = self.fc3(x_1)
 
-        # x = torch.cat([x,x_1],dim=1)
-        # x = self.fc4(x)
-        return x + x_1
+        x = torch.cat([x,x_1],dim=1)
+        x = self.fc4(x)
+        return x
 
 
 #########################
