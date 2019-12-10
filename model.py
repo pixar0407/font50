@@ -166,7 +166,7 @@ class convnet(nn.Module):
             nn.Linear(12 * 12 * 64, 2048),
             nn.LeakyReLU(0.2, inplace=True)
         )
-        self.fc2 = nn.Linear(2048, 50)
+        # self.fc2 = nn.Linear(2048, 50)
 
         self.layer2 = nn.Sequential(
             nn.Conv2d(64, 128, 3, stride=1),
@@ -175,18 +175,24 @@ class convnet(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
-        self.fc3 = nn.Linear(4 * 4 * 128, 50)
+        self.fc3 = nn.Sequential(
+            nn.Linear(4 * 4 * 128, 50),
+            nn.LeakyReLU(0.2, inplace=True)
+        )
 
+        self.fc4 = nn.Linear(2560, 50)
     def forward(self, x):
         x = self.layer1(x)
         x_1 = x.clone()
 
         x = x.view(x.shape[0], -1)
         x = self.fc1(x)
-        x = self.fc2(x)
+        # x = self.fc2(x)
 
         x_1 = self.layer2(x_1)
         x_1 = x_1.view(x.shape[0], -1)
         x_1 = self.fc3(x_1)
 
-        return x + x_1
+        x = torch.cat([x,x_1],dim=1)
+        x = self.fc4(x)
+        return x
